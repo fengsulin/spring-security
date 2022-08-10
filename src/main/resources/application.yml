@@ -1,0 +1,33 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: @project.name@
+  redis:
+    host: 192.168.2.131
+    database: 0
+    port: 6379
+    jedis:
+      pool:
+        enabled: true
+        max-active: 8
+        max-wait: 2000
+        min-idle: 2
+        max-idle: 8
+    password: redis@123456
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.2.131:3306/db_2022_cloud?userUnicode=true&charactorEncoding=utf-8&userSSl=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 60000
+      validation-timeout: 3000
+      idle-timeout: 60000
+      maximum-pool-size: 10
+      read-only: false
+mybatis-plus:
+  type-aliases-package: com.lin.security.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:/mappers/*.xml
