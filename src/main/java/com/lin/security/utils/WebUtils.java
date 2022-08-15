@@ -1,5 +1,7 @@
 package com.lin.security.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -13,7 +15,8 @@ public class WebUtils {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         try {
-            response.getWriter().println(data);
+            String s = new ObjectMapper().writeValueAsString(data);
+            response.getWriter().println(s);
         } catch (IOException e) {
             e.printStackTrace();
         }

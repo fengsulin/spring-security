@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/hello")
-    @PreAuthorize("hasAuthority('test')")   // 带有test字符串的有权限访问该接口
+    @PreAuthorize("hasAuthority('system:test:list')")   // 带有test字符串的有权限访问该接口
     public String hello(){
         return "hello";
     }

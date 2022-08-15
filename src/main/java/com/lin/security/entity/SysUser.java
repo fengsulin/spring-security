@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class User implements Serializable {
+public class SysUser implements Serializable {
     private static final long serialVersionUID = 1352098L;
 
     /**用户id*/

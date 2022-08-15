@@ -1,7 +1,7 @@
 package com.lin.security.service.impl;
 
 import com.lin.security.constants.SecurityConstant;
-import com.lin.security.entity.User;
+import com.lin.security.entity.SysUser;
 import com.lin.security.service.LoginService;
 import com.lin.security.utils.JWTUtils;
 import com.lin.security.utils.RedisUtils;
@@ -27,9 +27,9 @@ public class LoginServiceImpl implements LoginService {
     private RedisUtils redisUtils;
 
     @Override
-    public ResultVo login(User user) {
+    public ResultVo login(SysUser sysUser) {
         // 将登录信息封装成authentication对象
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser.getUsername(), sysUser.getPassword());
         // AuthenticationManager的authenticate方法进行认证
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         // 如果未通过，给出提示
@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
         }
         // 认证通过，使用userid生成一个jwt
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-        String userId = loginUser.getUser().getId().toString();
+        String userId = loginUser.getSysUser().getId().toString();
         Map<String ,Object> params = new HashMap<>();
         params.put("userId",userId);
         String jwtToken = JWTUtils.getJwtToken(params);
@@ -55,7 +55,7 @@ public class LoginServiceImpl implements LoginService {
         // 获取SecurityContextHolder中的用户Id
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        Long id = loginUser.getUser().getId();
+        Long id = loginUser.getSysUser().getId();
         // 删除redis中的用户信息
         redisUtils.deleteCacheObject(SecurityConstant.REDIS_KEY_PREFIX+id);
         return ResultVo.success("注销成功",null);

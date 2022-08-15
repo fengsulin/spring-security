@@ -1,6 +1,6 @@
 package com.lin.security.controller;
 
-import com.lin.security.entity.User;
+import com.lin.security.entity.SysUser;
 import com.lin.security.service.LoginService;
 import com.lin.security.vo.ResultVo;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,8 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResultVo login(@RequestBody User user){
-        return loginService.login(user);
+    public ResultVo login(@RequestBody SysUser sysUser){
+        return loginService.login(sysUser);
     }
 
     @DeleteMapping("/logout")

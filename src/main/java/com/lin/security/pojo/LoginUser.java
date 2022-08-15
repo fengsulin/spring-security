@@ -1,7 +1,8 @@
 package com.lin.security.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.lin.security.entity.User;
+import com.lin.security.entity.SysUser;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,14 +17,15 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class LoginUser implements UserDetails {
-    private User user;
+    private SysUser sysUser;
     private List<String> permissions;
     @JSONField(serialize = false)   // SimpleGrantedAuthority类型存入redis序列化时会报错
     private Set<SimpleGrantedAuthority> auths;
 
-    public LoginUser(User user, List<String> permissions) {
-        this.user = user;
+    public LoginUser(SysUser sysUser, List<String> permissions) {
+        this.sysUser = sysUser;
         this.permissions = permissions;
     }
 
@@ -40,12 +42,12 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return  user.getPassword();
+        return  sysUser.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return sysUser.getUsername();
     }
 
     @Override
