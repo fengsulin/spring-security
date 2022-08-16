@@ -13,4 +13,10 @@ public class HelloController {
     public String hello(){
         return "hello";
     }
+
+    @GetMapping("/word")
+    @PreAuthorize("@exr.hasAuthority('system:test:list')")  // SPEL表达式中使用@exr引用bean
+    public String word(){
+        return "word";
+    }
 }

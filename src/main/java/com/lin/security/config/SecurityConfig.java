@@ -58,5 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(accessDeniedHandler);
         // 配置跨域
         http.cors();
+
+        // 处理可以在接口中配置权限，还可以直接在配置类中配置
+        http.authorizeRequests()
+                .antMatchers("/word")
+                .hasAnyAuthority("system:test:list");
     }
 }

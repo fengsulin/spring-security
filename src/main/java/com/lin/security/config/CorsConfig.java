@@ -15,7 +15,7 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**")  // 允许跨域的路径
                 .allowedOriginPatterns("*") // 允许跨域请求的域名
                 .allowCredentials(true) // 是否允许cookie
-                .allowedMethods("GET","POST","DELETE","PUT")    // 请求方式
+                .allowedMethods("GET","POST","DELETE","PUT","OPTIONS")    // 请求方式
                 .allowedHeaders("*")    // 设置允许的headers属性
                 .maxAge(3600);  // 跨域允许的时间
     }
